@@ -1,5 +1,5 @@
 
-// Vaiables de configuración
+// Variables constantes
 const PRECIO_ENTRADA = 20;
 const CUPOS_INICIALES = 50;
 
@@ -15,3 +15,40 @@ let totalEntradasVendidas = 0;
 let ingresosAcumulados = 0;
 let comprasRealizadas = 0;
 let opcion;
+
+//Menu
+do {
+    opcion = prompt(
+        "SISTEMA INNOVA ESPE 2026\n\n" +
+        "1. Comprar entradas\n" +
+        "2. Consultar cupos disponibles\n" +
+        "3. Consultar ingresos acumulados\n" +
+        "4. Salir\n\n" +
+        "Seleccione una opcion:"
+    );
+
+ // Casos  switch
+
+  switch (opcion) {
+     case "1":
+            alert("Seleccionaste: Comprar entradas");
+            break;
+
+        case "2":
+            alert("Seleccionaste: Consultar cupos disponibles");
+            break;
+
+        case "3":
+            alert("Seleccionaste: Consultar ingresos acumulados");
+            break;
+
+        case "4":
+            alert("Gracias por utilizar el sistema Innova ESPE 2026");
+            break;
+
+        default:
+            alert("Opcion no valida. Intente nuevamente.");
+            break;
+  }
+
+} while (opcion !== "4");
