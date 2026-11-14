@@ -31,10 +31,28 @@ do {
 
   switch (opcion) {
      case "1":
+        if (cuposDisponibles === 0) {
+        alert("Evento agotado. No es posible realizar mas compras.");
+        break;
+        }
+
             // COMPRA DE ENTRADAS
-            let nombre = prompt("Ingrese el nombre del comprador:"); 
+            let nombre;
+            do {
+            const entrada = prompt("Ingrese el nombre del comprador:");
+
+            if (entrada === null) {
+            nombre = "";             
+            } else {
+            nombre = entrada.trim();  
+            }
+            if (nombre === "") {
+            alert("El nombre es obligatorio.");
+            }
+            } while (nombre === "");
             let descuento;
             let tipo;
+
 
         do {    
             tipo = prompt(
@@ -73,11 +91,36 @@ do {
         if (tipo === "4") {
             break; 
         }
-        
-        let cantidad = Number(prompt("Ingrese la cantidad de entradas:"));
-        let subtotal = cantidad * PRECIO_ENTRADA;
-        let valorDescuento = subtotal * descuento;
-        let totalPagar = subtotal - valorDescuento;
+        let cantidad;
+
+        do {
+            cantidad = Number(prompt("Ingrese la cantidad de entradas (maximo " + MAX_ENTRADAS + "):"));
+            if (!Number.isInteger(cantidad)) {
+                alert("Cantidad no valida. Debe ser un numero entero positivo.");
+            } else if (cantidad < 1 || cantidad > MAX_ENTRADAS) {
+                alert("La cantidad debe estar entre 1 y " + MAX_ENTRADAS + ".");
+            } else if(cantidad > cuposDisponibles ){
+                alert("No hay suficientes cupos disponibles. Cupos restantes: " + cuposDisponibles);
+            }
+        } while (cantidad <= 0 || cantidad > MAX_ENTRADAS || cantidad > cuposDisponibles || !Number.isInteger(cantidad));
+
+
+        const subtotal = cantidad * PRECIO_ENTRADA;
+        const valorDescuento = subtotal * descuento;
+        const totalPagar = subtotal - valorDescuento;
+
+        cuposDisponibles = cuposDisponibles - cantidad;
+        totalEntradasVendidas = totalEntradasVendidas + cantidad;
+        ingresosAcumulados = ingresosAcumulados + totalPagar;
+        comprasRealizadas++;
+
+        console.log(
+         "Compra #" + comprasRealizadas +
+         " | Comprador: " + nombre +
+         " | Entradas: " + cantidad +
+         " | Total: $" + totalPagar.toFixed(2) +
+         " | Cupos restantes: " + cuposDisponibles
+        );
 
         alert(
         "RESUMEN DE COMPRA\n\n" +
@@ -85,7 +128,9 @@ do {
         "Cantidad: " + cantidad + "\n" +
         "Subtotal: $" + subtotal.toFixed(2) + "\n" +
         "Descuento: $" + valorDescuento.toFixed(2) + "\n" +
-        "Total a pagar: $" + totalPagar.toFixed(2)
+        "Total a pagar: $" + totalPagar.toFixed(2)+ "\n" +
+        "Compra realizada exitosamente.\n" +
+        "Cupos restantes: " + cuposDisponibles
         );
         break;
 
@@ -122,6 +167,14 @@ do {
 
         case "4":
             alert("Gracias por utilizar el sistema Innova ESPE 2026");
+            alert(
+            "RESUMEN FINAL - INNOVA ESPE 2026\n\n" +
+            "Entradas vendidas: " + totalEntradasVendidas + "\n" +
+            "Cupos restantes: " + cuposDisponibles + "\n" +
+            "Ingresos acumulados: $" + ingresosAcumulados.toFixed(2) + "\n" +
+            "Compras realizadas: " + comprasRealizadas + "\n\n" +
+            "Gracias por utilizar nuestro sistema."
+            );
             break;
 
         default:
