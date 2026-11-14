@@ -90,11 +90,34 @@ do {
         break;
 
         case "2":
-            alert("Seleccionaste: Consultar cupos disponibles");
+            // CONSULTAR CUPOS DISPONIBLES
+
+            let mensajeCupos;
+        
+             if (cuposDisponibles > 10) {
+             mensajeCupos = "Cupos disponibles";
+            } else if (cuposDisponibles >= 1) {
+            mensajeCupos = "Ultimos cupos disponibles";
+            }else{
+            mensajeCupos = "Evento agotado";
+            }
+
+            alert(
+            "CONSULTA DE CUPOS\n\n" +
+            "Cupos disponibles: " + cuposDisponibles + "\n" +
+            "Estado: " + mensajeCupos
+            );
+
             break;
 
         case "3":
-            alert("Seleccionaste: Consultar ingresos acumulados");
+            // CONSULTAR INGRESOS ACUMULADOS
+            alert(
+            "REPORTE DE INGRESOS\n\n" +
+            "Total de entradas vendidas: " + totalEntradasVendidas + "\n" +
+            "Ingresos acumulados: $" + ingresosAcumulados.toFixed(2) + "\n" +
+            "Compras realizadas: " + comprasRealizadas
+        );
             break;
 
         case "4":
